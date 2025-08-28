@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getAuthToken } from "./AuthService";
 
-const API_URL = "https://craftconnect-1-cb4x.onrender.com/api";
+const API_URL = "https://craftconnect-skp2.onrender.com/api";
 
 // Get analytics summary for professional dashboard
 export const getProfessionalAnalyticsSummary = async () => {

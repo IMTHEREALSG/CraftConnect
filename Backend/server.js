@@ -14,7 +14,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin:'*',
+    origin:['https://craft-connect-tau.vercel.app/','*'],
 }));
 
 // Middleware
