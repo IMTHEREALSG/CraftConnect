@@ -13,12 +13,26 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-    origin:['https://craft-connect-tau.vercel.app/','*'],
-}));
+const allowedOrigins = [
+  "https://craft-connect-tau.vercel.app", // no trailing slash
+  "http://localhost:5173",
+];
 
-// Middleware
-app.use(express.json());
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin) return callback(null, true); // e.g., curl, Postman
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`Origin ${origin} not allowed by CORS`));
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // set to false if you never use cookies/credentials
+  })
+);
+
+// Ensure preflight requests are handled
+app.options("*", cors());
 // app.use(cors());
 
 // Connect to MongoDB
